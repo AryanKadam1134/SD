@@ -1,16 +1,18 @@
-from flask import Flask, render_template, Response, jsonify
+from flask import Flask, render_template, Response, jsonify, url_for
 import cv2
 from src.utils.face_detection import FaceDetector
 from src.models.stress_detector import StressDetector
 from src.utils.recommendations import StressRecommender
+import os
 import time
 
 app = Flask(__name__, 
            template_folder='../webapp/templates',
-           static_folder='../webapp/static')
+           static_folder='../webapp/static',
+           static_url_path='/static')
 
 detector = FaceDetector()
-stress_detector = StressDetector(model_path='models/best_model.pth')
+stress_detector = StressDetector(model_path='models/model_epoch_0_acc_0.1250.pth')
 recommender = StressRecommender()
 
 def gen_frames():

@@ -45,7 +45,20 @@ class StressDetector:
     def __init__(self, model_path):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = EmotionCNN().to(self.device)
-        self.model.load_state_dict(torch.load(model_path))
+        
+        # Load checkpoint and extract model state dict
+        try:
+            checkpoint = torch.load(model_path, map_location=self.device)
+            if 'model_state_dict' in checkpoint:
+                # Load from checkpoint format
+                self.model.load_state_dict(checkpoint['model_state_dict'])
+            else:
+                # Try loading direct state dict
+                self.model.load_state_dict(checkpoint)
+        except Exception as e:
+            logging.error(f"Failed to load model: {str(e)}")
+            raise
+            
         self.model.eval()
         
         self.transform = transforms.Compose([

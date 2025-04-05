@@ -6,12 +6,12 @@
 DATASET_PATH = 'c:/D/Aryan/Projects/final/stress-detection-app/dataset_root'
 
 # Model parameters
-MODEL_PATH = 'models/best_model.pth'
+MODEL_PATH = 'models/model_epoch_0_acc_0.1250.pth'
 IMAGE_SIZE = (224, 224)  # Size for input images
 BATCH_SIZE = 16  # Reduced for 2GB VRAM
 NUM_CLASSES = 8  # Number of emotion classes
 LEARNING_RATE = 0.001
-EPOCHS = 50
+EPOCHS = 20
 
 # Training settings
 TRAIN_SPLIT = 0.8
